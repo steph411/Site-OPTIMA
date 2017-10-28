@@ -45,7 +45,7 @@ class Catalogue(models.Model):
     souscategorie = models.ForeignKey(SousCategorie, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'Type'
+        db_table = 'Catalogue'
 
     def __str__(self):
         return self.nom
