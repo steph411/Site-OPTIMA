@@ -8,7 +8,7 @@ class Categorie(models.Model):
 
     # TODO: Define fields here
     nom = models.CharField(max_length=60)
-    image = models.URLField(max_length=200, null=True)
+    image = models.ImageField(blank=True, null=True)
 
 
     class Meta: 
