@@ -22,5 +22,12 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+if settings.DEBUG:
+    #configuration des fichiers statiques media(images, videos) qui peuvent etre ajoutés par l'admin(developpement uniquement)
+    static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  
+
+    #configuration des fichiers statiques normaux , js ,images css...(developpement uniquement)
+        #static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+        
