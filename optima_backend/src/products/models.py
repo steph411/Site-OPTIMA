@@ -69,7 +69,7 @@ class Promotion(models.Model):
     
     """ definition du modele promotion """
 
-    description = models.TextField()
+    description = models.TextField(blank=True)
     image = models.URLField(max_length=200)
     pourcentage = models.SmallIntegerField()
     date_validite = models.DateField(auto_now=False, auto_now_add=False)
@@ -118,7 +118,7 @@ class ImagesProduit(models.Model):
 class Guide(models.Model):
 
     """ definition du modele pour les guides d'achat par rapport a un catalogue"""
-
+    titre = models.CharField(max_length=254, blank=True, null=True)
     description = models.TextField()
     catalogue = models.ForeignKey(Catalogue, on_delete=models.CASCADE)
 
@@ -161,7 +161,7 @@ class Offre(models.Model):
     produit = models.ForeignKey(Produit, on_delete=models.CASCADE)
     magasin = models.ForeignKey(Magasin, on_delete=models.CASCADE)
     notation = models.FloatField()
-    description = models.TextField()
+    description = models.TextField(blank=True)
     prix = models.FloatField()
     url_produit = models.URLField(max_length=200, blank=True, null=True)
 
