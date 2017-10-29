@@ -3,7 +3,7 @@ from products.models import Categorie
 from products.models import SousCategorie
 from products.models import Catalogue
 from products.models import Produit
-from products.models import Catacteristique
+from products.models import Caracteristique
 from products.models import Promotion
 from products.models import ImagesProduit
 from products.models import Guide
@@ -19,6 +19,9 @@ class SousCategorieAdmin(admin.ModelAdmin):
     pass
 
 class CatalogueAdmin(admin.ModelAdmin):
+    pass
+
+class CaracteristiqueAdmin(admin.ModelAdmin):
     pass
 
 class ProduitAdmin(admin.ModelAdmin):
@@ -44,3 +47,4 @@ admin.site.register(ImagesProduit, ImagesProduitAdmin)
 admin.site.register(Guide, GuideAdmin)
 admin.site.register(Magasin, MagasinAdmin)
 admin.site.register(Offre, OffreAdmin)
+admin.site.register(Caracteristique, CaracteristiqueAdmin)

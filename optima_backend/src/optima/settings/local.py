@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'optima.wsgi.application'
 DATABASES = DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'optima',
+        'NAME': 'optimadb',
         'USER': 'etabalionel@gmail.com',
         'PASSWORD': 'postgres',
         'HOST': '127.0.0.1',
@@ -124,7 +124,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-#STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 
 
 

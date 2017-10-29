@@ -25,7 +25,7 @@ class Categorie(models.Model):
 
 class SousCategorie(models.Model):
     nom = models.CharField(max_length=60)
-    image = models.URLField(max_length=200, null=True)
+    image = models.ImageField(blank=True, null=True)
     categorie = models.ForeignKey(Categorie, on_delete=models.CASCADE)
 
     class Meta:
@@ -41,7 +41,7 @@ class Catalogue(models.Model):
     """ definition du modele type de produit """
 
     nom  = models.CharField(max_length=60)
-    image = models.URLField(max_length=200)
+    image = models.ImageField(blank=True, null=True)
     souscategorie = models.ForeignKey(SousCategorie, on_delete=models.CASCADE)
 
     class Meta:
@@ -69,8 +69,8 @@ class Promotion(models.Model):
     
     """ definition du modele promotion """
 
-    description = models.TextField(blank=True)
-    image = models.URLField(max_length=200)
+    description = models.TextField(blank=True, null=True)
+    image = models.ImageField()
     pourcentage = models.SmallIntegerField()
     date_validite = models.DateField(auto_now=False, auto_now_add=False)
     produit = models.ForeignKey(Produit, on_delete=models.CASCADE)
@@ -82,31 +82,33 @@ class Promotion(models.Model):
     def __str__(self):
         return self.description
 
+class Caracteristique(models.Model):
 
-class Catacteristique(models.Model):
-    
-    """ definition du modele caracteristique """
+    """modele decrivant les caractéristiques des produits"""
 
     taille = models.SmallIntegerField(blank=True, null=True)
-    marque = models.CharField(max_length=50)
+    marque = models.CharField(max_length=60)
     ram = models.SmallIntegerField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
+    produit = models.OneToOneField(Produit, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'Caracteristique'
+        db_table = "Caracteristique"
 
     def __str__(self):
-        return self.description
+        return "caracteristique" 
+
+    
 
 
 class ImagesProduit(models.Model):
     
     """ definition du modele pour les images des produits """
 
-    image1 = models.URLField(max_length=200)
-    image2 = models.URLField(max_length=200)
-    image3 = models.URLField(max_length=200)
-    image4 = models.URLField(max_length=200)
+    image1 = models.ImageField()
+    image2 = models.ImageField(blank=True, null=True)
+    image3 = models.ImageField(blank=True, null=True)
+    image4 = models.ImageField(blank=True, null=True)
     produit = models.OneToOneField(Produit, on_delete=models.CASCADE)
 
     class Meta:
@@ -140,8 +142,8 @@ class Magasin(models.Model):
     quartier = models.CharField(max_length=60)
     numero_telephone = models.SmallIntegerField()
     email = models.EmailField(max_length=254)
-    url_site = models.URLField(max_length=200)
-    url_logo = models.URLField(max_length=200)
+    url_site = models.URLField(max_length=200, blank=True, null=True)
+    logo = models.ImageField(blank=True, null=True)
     produits = models.ManyToManyField(Produit, through='Offre')
 
     class Meta:
@@ -161,7 +163,7 @@ class Offre(models.Model):
     produit = models.ForeignKey(Produit, on_delete=models.CASCADE)
     magasin = models.ForeignKey(Magasin, on_delete=models.CASCADE)
     notation = models.FloatField()
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, null=True)
     prix = models.FloatField()
     url_produit = models.URLField(max_length=200, blank=True, null=True)
 
