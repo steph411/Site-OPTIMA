@@ -39,6 +39,8 @@ class MagasinAdmin(admin.ModelAdmin):
 class OffreAdmin(admin.ModelAdmin):
     pass
 
+
+admin.site.site_header = 'Optima Administration'
 admin.site.register(Categorie, CategorieAdmin)
 admin.site.register(SousCategorie, SousCategorieAdmin)
 admin.site.register(Catalogue, CatalogueAdmin)

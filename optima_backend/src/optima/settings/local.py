@@ -32,6 +32,10 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'products',
     'users',
+    'admin_interface',
+    'flat_responsive',
+    'flat',
+    'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,7 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-AUTH_USER_MODEL = 'users.User'
+#changement du modèle utilisateur par defaut de django avec notre modele personnalise : AUTH_USER_MODEL
+
+AUTH_USER_MODEL = 'users.User'  
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
