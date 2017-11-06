@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users',
+    'products',
+    'graphene_django',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +52,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+GRAPHENE = {
+    'SCHEMA':'optima.schema.schema',
+}
 ROOT_URLCONF = 'optima.urls'
 
 TEMPLATES = [

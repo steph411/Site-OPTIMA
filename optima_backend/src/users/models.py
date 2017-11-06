@@ -6,7 +6,9 @@ from django.contrib.auth.models import (
 # Create your models here.
 
 class UserManager(BaseUserManager):                                                               #creation du manager personnalisé
-    def create_user(self, email, password=None, is_active=True, is_staff=False, is_admin=False):                  #on prend en paramètre tous les champs
+    def create_user(self, email, username, password=None, is_active=True, is_staff=False, is_admin=False):                  #on prend en paramètre tous les champs
+        if not username:
+            raise ValueError("un utilisateur doit avoir un nom d'utilisateur")
         if not email:                                                                             #contenus dans REQUIRED_FIELDS
             raise ValueError("les utilisateurs doivent avoir une adresse email")
         if not password:
@@ -14,24 +16,27 @@ class UserManager(BaseUserManager):                                             
         user_object = self.model(
             email = self.normalize_email(email)
         )
-        user_object.staff  = is_staff
-        user_object.active = is_active
-        user_object.admin  = is_admin
+        user_object.username = username
+        user_object.staff    = is_staff
+        user_object.active   = is_active
+        user_object.admin    = is_admin
         user_object.set_password(password)                                                           #on defini e mot de passe(le changement de celui
         user_object.save(using=self._db)                                                             #se fait de la meme facon)
         return user_object                                                                           #on retourne une instance d'utilisateur
 
-    def create_staffuser(self, email, password=None):
+    def create_staffuser(self, username, email, password=None):
         user = self.create_user(
             email,
+            username = username,
             password = password,
             is_staff = True
         )
         return user
     
-    def create_superuser(self, email, password=None):
+    def create_superuser(self, email, username, password=None):
         user = self.create_user(
             email,
+            username = username,
             password = password,
             is_staff = True,
             is_admin = True
@@ -43,16 +48,16 @@ class UserManager(BaseUserManager):                                             
 
 class User(AbstractBaseUser):                                                #notre modele herite de celui ci pour pouvoir l'adapter
     """ modele decrivant les comptes d'utilisateur """
-
+    username     = models.CharField(max_length=100, unique=True)
     email        = models.EmailField(max_length=255, unique=True)           #une seule adresse email par utilisateur
     active       = models.BooleanField(default=True)                        #statut du compte
     staff        = models.BooleanField(default=False)                       #statut du comtpe(si l'utilisateur est du staff)
     admin        = models.BooleanField(default=False)                       #statut du compte(si l'utilisateur est admin)
     created_date = models.DateTimeField(auto_now_add=True)                  #date de creation du compte
 
-    USERNAME_FIELD   = 'email'                                              #on surclasse le champ par defaut de django 
+    USERNAME_FIELD   = 'username'                                              #on surclasse le champ par defaut de django 
 
-    REQUIRED_FIELDS  =[]
+    REQUIRED_FIELDS  =['email']
 
     objects = UserManager()                                                 #surclasse du manager par defaut 
 
@@ -60,13 +65,13 @@ class User(AbstractBaseUser):                                                #no
         return self.email
 
     def get_name(self):
-        return self.email
+        return self.username
 
     def get_full_name(self):
         return self.email
 
     def get_short_name(self):
-        return self.email
+        return self.username
 
     def has_perm(self, perm, obj=None):
         return True

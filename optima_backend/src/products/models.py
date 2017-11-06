@@ -14,9 +14,9 @@ class Categorie(models.Model):
     class Meta: 
 
         """Meta definition for Categorie."""
-        db_table = 'Categorie'
-        verbose_name = 'Categorie'  
-        verbose_name_plural = 'Categorie'
+        db_table = 'categorie'
+        verbose_name = 'categorie'  
+        verbose_name_plural = 'categorie'
 
     def __str__(self):  
             """Unicode representation of Categorie."""
@@ -29,7 +29,7 @@ class SousCategorie(models.Model):
     categorie = models.ForeignKey(Categorie, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'SousCategorie'
+        db_table = 'sous_categorie'
 
     def __str__(self):
         return self.nom
@@ -45,7 +45,7 @@ class Catalogue(models.Model):
     souscategorie = models.ForeignKey(SousCategorie, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'Catalogue'
+        db_table = 'catalogue'
 
     def __str__(self):
         return self.nom
@@ -60,7 +60,7 @@ class Produit(models.Model):
     catalogue = models.ForeignKey(Catalogue, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'Produit'
+        db_table = 'produit'
     
     def __str__(self):
         return self.nom
@@ -69,14 +69,16 @@ class Promotion(models.Model):
     
     """ definition du modele promotion """
 
+    nom   = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField()
     pourcentage = models.SmallIntegerField()
+    date_debut  = models.DateField(auto_now=True)
     date_validite = models.DateField(auto_now=False, auto_now_add=False)
     produit = models.ForeignKey(Produit, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'Promotion'
+        db_table = 'promotion'
 
 
     def __str__(self):
@@ -93,7 +95,7 @@ class Caracteristique(models.Model):
     produit = models.OneToOneField(Produit, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = "Caracteristique"
+        db_table = "caracteristique"
 
     def __str__(self):
         return "caracteristique" 
@@ -112,7 +114,7 @@ class ImagesProduit(models.Model):
     produit = models.OneToOneField(Produit, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'ImagesProduit'
+        db_table = 'images_produit'
        
     def __str__(self):
         return self.produit.nom
@@ -125,9 +127,9 @@ class Guide(models.Model):
     catalogue = models.ForeignKey(Catalogue, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'Guide'
-        verbose_name = 'Guide'
-        verbose_name_plural = 'Guide'
+        db_table = 'guide'
+        verbose_name = 'guide'
+        verbose_name_plural = 'guide'
 
     def __str__(self):
         return self.description
@@ -147,9 +149,9 @@ class Magasin(models.Model):
     produits = models.ManyToManyField(Produit, through='Offre')
 
     class Meta:
-        db_table = 'Magasin'
-        verbose_name = 'Magasin'
-        verbose_name_plural = 'Magasin'
+        db_table = 'magasin'
+        verbose_name = 'magasin'
+        verbose_name_plural = 'magasin'
 
     def __str__(self):
         return self.nom
@@ -168,9 +170,9 @@ class Offre(models.Model):
     url_produit = models.URLField(max_length=200, blank=True, null=True)
 
     class Meta:
-        db_table = 'Offre'
-        verbose_name = 'Offre'
-        verbose_name_plural = 'Offre'
+        db_table = 'offre'
+        verbose_name = 'offre'
+        verbose_name_plural = 'offre'
 
     def __str__(self):
         return self.description

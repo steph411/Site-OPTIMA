@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'graphene_django',
 ]
 
 #changement du modèle utilisateur par defaut de django avec notre modele personnalise : AUTH_USER_MODEL
@@ -57,6 +58,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+GRAPHENE = {
+    'SCHEMA':'optima.schema.schema',
+}
+
 
 ROOT_URLCONF = 'optima.urls'
 

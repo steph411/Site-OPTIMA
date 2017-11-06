@@ -18,13 +18,25 @@ from django.conf.urls.static import static
 
 from django.contrib import admin
 from django.conf import settings
+from graphene_django.views import GraphQLView
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-   # url(r'^jet/', include('jet.urls', 'jet')),
-   # url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
-] #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    url(r'^graphql', csrf_exempt(GraphQLView.as_view(graphiql=True))),
+    url(r'^gql', csrf_exempt(GraphQLView.as_view(batch=True))),
+]
+... # code
+''' from django.views.decorators.csrf import csrf_exempt
+from graphene_django.views import GraphQLView
+
+urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+    url(r'^graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
+
+] '''
 
 if settings.DEBUG:
     #configuration des fichiers statiques media(images, videos) qui peuvent etre ajoutés par l'admin(developpement uniquement)

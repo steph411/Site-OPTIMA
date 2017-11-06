@@ -1,4 +1,4 @@
-from django.contrib import admin
+from django.contrib  import admin
 from products.models import Categorie
 from products.models import SousCategorie
 from products.models import Catalogue
