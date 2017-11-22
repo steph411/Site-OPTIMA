@@ -8,7 +8,7 @@ class Categorie(models.Model):
 
     # TODO: Define fields here
     nom = models.CharField(max_length=60)
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(upload_to='categories', blank=True, null=True)
 
 
     class Meta: 
@@ -25,7 +25,7 @@ class Categorie(models.Model):
 
 class SousCategorie(models.Model):
     nom = models.CharField(max_length=60)
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(upload_to='souscategories', blank=True, null=True)
     categorie = models.ForeignKey(Categorie, on_delete=models.CASCADE)
 
     class Meta:
@@ -41,7 +41,7 @@ class Catalogue(models.Model):
     """ definition du modele type de produit """
 
     nom  = models.CharField(max_length=60)
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(upload_to='catalogues', blank=True, null=True)
     souscategorie = models.ForeignKey(SousCategorie, on_delete=models.CASCADE)
 
     class Meta:
@@ -71,11 +71,11 @@ class Promotion(models.Model):
 
     nom   = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    image = models.ImageField()
+    image = models.ImageField(upload_to='promotions')
     pourcentage = models.SmallIntegerField()
     date_debut  = models.DateField(auto_now=True)
     date_validite = models.DateField(auto_now=False, auto_now_add=False)
-    produit = models.ForeignKey(Produit, on_delete=models.CASCADE)
+    catalogue = models.ForeignKey(Catalogue, on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'promotion'
@@ -107,10 +107,10 @@ class ImagesProduit(models.Model):
     
     """ definition du modele pour les images des produits """
 
-    image1 = models.ImageField()
-    image2 = models.ImageField(blank=True, null=True)
-    image3 = models.ImageField(blank=True, null=True)
-    image4 = models.ImageField(blank=True, null=True)
+    image1 = models.ImageField(upload_to='produits')
+    image2 = models.ImageField(upload_to='produits', blank=True, null=True)
+    image3 = models.ImageField(upload_to='produits', blank=True, null=True)
+    image4 = models.ImageField(upload_to='produits', blank=True, null=True)
     produit = models.OneToOneField(Produit, on_delete=models.CASCADE)
 
     class Meta:
@@ -145,7 +145,7 @@ class Magasin(models.Model):
     numero_telephone = models.SmallIntegerField()
     email = models.EmailField(max_length=254)
     url_site = models.URLField(max_length=200, blank=True, null=True)
-    logo = models.ImageField(blank=True, null=True)
+    logo = models.ImageField(upload_to='logos_magasins', blank=True, null=True)
     produits = models.ManyToManyField(Produit, through='Offre')
 
     class Meta:

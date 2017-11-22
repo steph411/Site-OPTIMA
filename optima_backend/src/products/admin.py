@@ -13,19 +13,21 @@ from products.models import Offre
 
 
 class CategorieAdmin(admin.ModelAdmin):
-    pass
+    ordering = ['nom']
 
 class SousCategorieAdmin(admin.ModelAdmin):
-    pass
+    ordering   =  ['nom']
 
 class CatalogueAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ('nom', 'souscategorie__nom')
+    #list_display  = ['nom']
+    ordering      = ['nom']
 
 class CaracteristiqueAdmin(admin.ModelAdmin):
     pass
 
 class ProduitAdmin(admin.ModelAdmin):
-    pass
+    ordering = ['nom']
 
 class ImagesProduitAdmin(admin.ModelAdmin):
     pass

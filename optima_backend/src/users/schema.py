@@ -11,13 +11,13 @@ class CreateUser(graphene.Mutation):
     
     user = graphene.Field(UserType)
 
-    class Input:
+    class Arguments:
         username = graphene.String(required = True)
         email    = graphene.String(required = True)
         password = graphene.String(required = True)
 
     @staticmethod
-    def mutate(self, context, **kwargs):
+    def mutate(cls, context, **kwargs):
         email    = kwargs.get('email')
         password = kwargs.get('password')
         username = kwargs.get('username')
@@ -25,7 +25,6 @@ class CreateUser(graphene.Mutation):
         created_user = User.objects.create_user(username   = username,
                                                 email      = email,
                                                 password   = password)
-
         return CreateUser(user = created_user)
 
 
