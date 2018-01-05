@@ -77,7 +77,7 @@ class Query(graphene.ObjectType):
         return SousCategorie.objects.all()
 
     Souscategorie      = graphene.Field(SousCategorieType)
-
+    
     def resolve_sous_categorie(self, info, **kwargs):
         id   = kwargs.get('id')
         nom = kwargs.get('nom')
@@ -101,7 +101,7 @@ class Query(graphene.ObjectType):
         if id is not None:
             return Catalogue.objects.get(pk=id)
         if nom is not None:
-            return Catalogue.objects.get(nom=name)
+            return Catalogue.objects.get(nom=nom)
     
     #fields et resolver pour les produits
 

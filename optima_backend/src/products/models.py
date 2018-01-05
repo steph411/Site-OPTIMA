@@ -73,8 +73,8 @@ class Promotion(models.Model):
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='promotions')
     pourcentage = models.SmallIntegerField()
-    date_debut  = models.DateField(auto_now=True)
-    date_validite = models.DateField(auto_now=False, auto_now_add=False)
+    #date_debut  = models.DateField(auto_now=True)
+    #date_validite = models.DateField(auto_now=False, auto_now_add=False)
     catalogue = models.ForeignKey(Catalogue, on_delete=models.CASCADE)
 
     class Meta:

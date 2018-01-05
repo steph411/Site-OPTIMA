@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Header from './components/Header';
+import { Route, Switch } from 'react-router-dom';
+import Header from './containers/Header';
+import MainPage from './containers/MainPage';
+import DetailsOffres from './components/DetailsOffres';
 
 class App extends Component {
   render() {
     return (
-      <Header/>
-      
+      <div>
+         <Header key="header" />
+         <Switch>
+            <Route path="/" component={MainPage} />
+         </Switch>
+      </div>
     );
   }
 }

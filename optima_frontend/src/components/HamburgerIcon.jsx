@@ -6,6 +6,8 @@ const Styledsvg = styled.svg`
    width: 70px;
    height: 50px;
    cursor: pointer;
+
+
    & path{
       stroke-width: 60;
       stroke-linecap: round;
@@ -33,20 +35,22 @@ const Styledsvg = styled.svg`
 `;
 
 class HamburgerIcon extends Component {
-   /*  constructor(props) {
+    constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
-   } */
+   }
 
    handleClick(event) {
+         event.preventDefault();
          const pathelements = event.currentTarget.getElementsByTagName('path');
          for (const pathelement of pathelements) {
             pathelement.classList.toggle('open');
          }
+         this.props.changeHiddenMenuVisibility();
    }
    render() {
       return (
-         <Styledsvg viewBox="0 0 800 600" onClick={this.handleClick} className="">
+         <Styledsvg viewBox="0 0 800 600" onClick={this.handleClick} >
                <path d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200" className="top_bar" />
 
                <path d="M300,320 L540,320" className="middle_bar" />
